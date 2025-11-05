@@ -11,6 +11,7 @@ export default function Home() {
     const [filter, setFilter] = useState("")
     const [error, setError] = useState("");
 
+
     function handleAddNote(e) {
         e.preventDefault();
 
@@ -53,6 +54,14 @@ export default function Home() {
         );
     }, [filter, notes]);
 
+    function handleClearFilter() {
+        setFilter("");
+    }
+
+    function handleTagClick(tag) {
+        setFilter(tag);
+    }
+
 
     return (
 
@@ -62,14 +71,22 @@ export default function Home() {
                 <h1>DevNotes</h1>
             </header>
 
-            <input
-                className="search-input"
-                type="text"
-                placeholder="Buscar por título ou tag..."
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-            />
 
+            <div className="search-area">
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Buscar por título ou tag..."
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                />
+
+                {filter && (
+                    <button className="clear-btn" onClick={handleClearFilter}>
+                        Limpar filtro
+                    </button>
+                )}
+            </div>
 
             <form className="note-form" onSubmit={handleAddNote}>
                 <input
@@ -102,7 +119,14 @@ export default function Home() {
                             {note.tags.length > 0 && (
                                 <div className="note-tags">
                                     {note.tags.map((tag) => (
-                                        <span key={tag}>#{tag}</span>
+                                        <span
+                                            key={tag}
+                                            className={`tag ${filter.toLowerCase() === tag.toLowerCase()
+                                                ? "active-tag"
+                                                : ""
+                                                }`}
+                                            onClick={() => handleTagClick(tag)}
+                                        >#{tag}</span>
                                     ))}
                                 </div>
                             )}

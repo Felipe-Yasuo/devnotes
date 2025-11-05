@@ -85,8 +85,6 @@
     font-weight: 500;
 }
 
-
-
 .search-input {
     width: 100%;
     padding: 8px;
@@ -161,4 +159,33 @@
     background-color: #4f46e5 !important;
     color: #fff !important;
     font-weight: bold;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #f87171;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    color: #dc2626;
+    transform: scale(1.1);
+}
+
+.note-item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.note-item.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
 }

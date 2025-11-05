@@ -62,6 +62,17 @@ export default function Home() {
         setFilter(tag);
     }
 
+    function handleDelete(id) {
+        const noteElement = document.querySelector(`.note-item[data-id="${id}"]`);
+        if (!noteElement) return;
+
+        noteElement.classList.add("fade-out");
+
+        setTimeout(() => {
+            setNotes((prev) => prev.filter((note) => note.id !== id));
+        }, 300);
+    }
+
 
     return (
 
@@ -113,9 +124,11 @@ export default function Home() {
                     <p className="empty-message">Nenhuma nota encontrada 😕</p>
                 ) : (
                     filteredNotes.map((note) => (
-                        <li key={note.id} className="note-item">
-                            <strong>{note.title}</strong>
-
+                        <li key={note.id} className="note-item" data-id={note.id}>
+                            <div className="note-header">
+                                <strong>{note.title}</strong>
+                                <button className="delete-btn" onClick={() => handleDelete(note.id)}>✕</button>
+                            </div>
                             {note.tags.length > 0 && (
                                 <div className="note-tags">
                                     {note.tags.map((tag) => (
